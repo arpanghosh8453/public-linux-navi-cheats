@@ -1,0 +1,22 @@
+% dir, os, common
+
+# remove contents of a file converting it to zero size
+truncate --size 0 <file_on_dir>
+
+# Random password generator
+</dev/urandom tr -dc '!-~' | head -c <length-of-password>
+
+# List and sort top folders by size
+sudo du -h <dir-names> | sort -rh | head -5
+
+# Update cloudflared
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb && sudo dpkg -i cloudflared.deb && rm cloudflared.deb
+
+# Install docker from scratch 
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+# Install docker-compose
+sudo apt-get remove docker-compose && VERSION=$(curl --silent https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*\d') && DESTINATION=/usr/local/bin/docker-compose && sudo curl -L https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m) -o $DESTINATION && sudo chmod 755 $DESTINATION
+
+$ file_on_dir: fd
+$ dir-names: ls
